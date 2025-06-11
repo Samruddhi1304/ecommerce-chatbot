@@ -1,0 +1,37 @@
+# Python environment and build artifacts
+venv/                 
+.venv/               
+__pycache__/          
+*.pyc                 
+*.pyd                 
+*.so                  
+.pytest_cache/        
+.ipynb_checkpoints/   
+
+# Database files
+ecommerce.db          
+*.sqlite            
+*.db                
+
+# Environment variables
+.env                 
+.flaskenv             
+serviceAccountKey.json 
+
+# Logs
+*.log
+logs/                
+
+# IDE-specific files
+.idea/                
+.vscode/              
+
+# Distribution and packaging
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# OS generated files
+.DS_Store           
+Thumbs.db             

@@ -1,0 +1,41 @@
+# Node.js artifacts
+/frontend/node_modules
+/frontend/build
+/frontend/dist
+/frontend/npm-debug.log*
+/frontend/.env # If frontend had its own .env
+
+# Python artifacts
+/backend/venv/
+/backend/__pycache__/
+/backend/*.pyc
+/backend/*.sqlite3 # Your ecommerce.db would be here
+/backend/.env # If backend has its own .env
+/backend/serviceAccountKey.json # Explicitly ignore the Firebase key
+
+# Operating System Files
+.DS_Store # macOS
+Thumbs.db # Windows
+.localized # macOS localization files
+
+# IDE specific files
+.idea/ # IntelliJ IDEA, WebStorm, PyCharm etc.
+.vscode/ # VS Code (often preferred to ignore workspace settings)
+
+# Environment variables
+# This is usually handled within specific subdirectories,
+# but can be added here if your .env files were at the root.
+# .env
+# .env.*
+
+# Logs
+*.log
+logs/
+
+# Test/Coverage reports
+/coverage/
+
+# Misc
+.cache/
+.pnp/
+.pnp.js
