@@ -253,7 +253,7 @@ function Chatbot({ user, onProductsFound, onResetChat, initialMessage = "Hello! 
                             key={index}
                             className={`max-w-[80%] p-3 rounded-lg shadow-sm text-sm relative ${
                                 msg.sender === 'user'
-                                    ? 'bg-[#547ff5] text-white ml-auto rounded-br-none'
+                                    ? 'bg-[#597cdb] text-white ml-auto rounded-br-none'
                                     : 'mr-auto rounded-bl-none'
                             } ${
                                 msg.type === 'products_link'
@@ -317,7 +317,7 @@ function Chatbot({ user, onProductsFound, onResetChat, initialMessage = "Hello! 
                                         <div
                                             className={`max-w-[90%] p-2 rounded-lg shadow-sm text-xs relative ${
                                                 msg.sender === 'user'
-                                                    ? 'bg-[#547ef0] text-white ml-auto rounded-br-none'
+                                                    ? 'bg-[rgb(75,113,218)] text-white ml-auto rounded-br-none'
                                                     : 'mr-auto rounded-bl-none'
                                             } ${
                                                 msg.type === 'products_link'
