@@ -428,4 +428,5 @@ Challenge: Handling asynchronous operations for Firebase authentication and API 
 Solution: Careful use of async/await, dependency arrays in useEffect and useCallback, and adding loading states and error handling (try-catch) to provide better user feedback.
 
 ✍️ Author
+
 Samruddhi R.
