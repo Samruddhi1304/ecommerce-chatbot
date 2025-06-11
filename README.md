@@ -1,113 +1,147 @@
-E-commerce Sales Chatbot
-Project Overview
-This project implements a full-stack E-commerce Sales Chatbot designed to enhance the online shopping experience by enabling efficient product search, exploration, and purchase processes. The solution comprises a responsive React-based frontend and an API-driven Flask backend, integrated with Firebase for authentication and SQLite for data persistence. The chatbot aims to streamline customer interactions, making product discovery intuitive and accessible.
-Features
-Frontend (React Application)
-Responsive User Interface: Compatible with desktop, tablet, and mobile devices, ensuring a seamless experience across various platforms.
+🛍️ E-commerce Sales Chatbot
+📌 Project Overview
+This project implements a full-stack E-commerce Sales Chatbot designed to enhance the online shopping experience by enabling efficient product search, exploration, and purchase processes.
 
-User Authentication: Secure login and registration modules using Firebase Authentication.
+🔹 Frontend: Responsive React-based interface.
 
-Session Management: Maintains user state and cart continuity across interactions using browser local storage.
+🔹 Backend: API-driven Flask application.
 
-Interactive Chatbot Interface:
+🔹 Authentication: Integrated via Firebase.
 
-Allows natural language queries for product search.
+🔹 Database: SQLite for storing product, chat, and order data.
 
-Provides conversation reset functionality.
+🎯 The chatbot streamlines customer interaction and makes product discovery intuitive.
 
-Tracks chat messages with timestamps.
+🚀 Features
+🖥️ Frontend (React)
+Responsive UI: Works seamlessly on desktop, tablet, and mobile devices.
 
-Ability to view past chat history (text only, for now).
+User Authentication: Login and register securely via Firebase Authentication.
 
-Dynamically redirects to the product dashboard with filtered results based on chatbot interaction.
+Session Management: Cart and user state stored in browser localStorage.
 
-Product Dashboard:
+💬 Chatbot Interface
+Accepts natural language product queries.
 
-Displays products with detailed information.
+Chat reset functionality.
 
-Robust filtering capabilities (search term, categories, price range).
+Timestamps for all messages.
 
-Sorting options (by name, price, category).
+View past chat history (text only).
 
-"Add to Cart" functionality directly from product listings.
+Dynamically redirects to Product Dashboard with filtered results.
 
-Product Detail Page: Dedicated view for individual product information.
+🛒 Product Dashboard
+Displays product cards with detailed info.
 
-Shopping Cart Management:
+Filtering:
 
-View all items added to the cart.
+By search term
+
+By categories
+
+By price range
+
+Sorting:
+
+By name
+
+By price
+
+By category
+
+Add to Cart directly from listings.
+
+📄 Product Detail Page
+Dedicated page for viewing individual product details.
+
+🛍️ Cart Management
+View all added items.
 
 Update product quantities.
 
-Remove items from the cart.
+Remove items from cart.
 
-Calculates and displays the total cart amount.
+Display total cart amount.
 
-Cart Persistence: Cart items are saved in local storage, persisting even after logout/login.
+Cart Persistence: Cart data saved in localStorage (even after logout).
 
-Checkout Process: Initiates an order with the backend, clearing the cart upon successful completion.
+💳 Checkout Process
+Sends order to backend.
 
-Intuitive Navigation: Clear navigation flow between Chatbot, Dashboard, Product Details, and Cart. Logout redirects to the landing page.
+Cart clears upon successful order placement.
 
-Backend (Flask API)
-API-driven System: Processes frontend requests via RESTful endpoints.
+🧭 Navigation
+Seamless routing between Chatbot, Dashboard, Product Details, and Cart.
 
-Firebase Authentication Integration: Securely verifies user tokens for all protected API routes.
+Logout redirects to landing page.
 
-Product Management:
+🖥️ Backend (Flask API)
+RESTful API to serve frontend requests.
 
-Serves product data from an SQLite database.
+Firebase Token Verification on all protected routes.
 
-Supports dynamic search and filtering based on chatbot queries (by product name, category, description).
+📦 Product Management
+Fetches product data from SQLite database.
 
-Chat History Storage: Stores user queries and chatbot responses in the database for later retrieval.
+Supports dynamic filtering/search based on chatbot queries.
 
-Order Management:
+🧠 Chat History
+Stores each user query and chatbot reply.
 
-Records successful checkout orders in an orders table.
+📑 Order Management
+Orders stored in orders table.
 
-Stores individual items of an order in an order_items table, linking them to products and orders.
+Each product in order saved in order_items table.
 
-SQLite Database: A lightweight relational database for storing product inventory, chat history, and order details. Populated with over 200 mock e-commerce product entries at startup.
+🗄️ SQLite Database
+Lightweight and pre-populated with 200+ mock products on first run.
 
-Technology Stack
-Frontend
-React: A JavaScript library for building user interfaces.
+🧰 Technology Stack
+🔧 Frontend
+React – UI framework
 
-React Router DOM: For declarative routing in the application.
+React Router DOM – Routing
 
-Tailwind CSS: A utility-first CSS framework for rapid UI development and responsive design.
+Tailwind CSS – Styling
 
-Firebase JavaScript SDK: For frontend authentication (user login, registration, session management).
+Firebase JS SDK – Auth
 
-Backend
-Flask: A lightweight Python web framework for building RESTful APIs.
+🔧 Backend
+Flask – RESTful backend
 
-Flask-CORS: Enables Cross-Origin Resource Sharing.
+Flask-CORS – CORS handling
 
-SQLite3: A C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine.
+SQLite3 – Embedded DB
 
-Firebase Admin SDK (Python): For secure backend authentication (verifying ID tokens).
+Firebase Admin SDK – Token verification
 
-python-dotenv: For managing environment variables.
+python-dotenv – Environment variable management
 
-Installation and Setup
-Prerequisites
-Node.js (LTS version recommended) and npm
+⚙️ Installation and Setup
+✅ Prerequisites
+Node.js (LTS) + npm
 
-Python (3.8+) and pip
+Python 3.8+ + pip
 
-Firebase Project:
+🔐 Firebase Setup
+Create a Firebase project in Firebase Console
 
-Create a Firebase project on the Firebase Console.
+Enable Email/Password Authentication
 
-Enable Authentication (Email/Password provider).
+Download Service Account JSON Key:
 
-Generate a Service Account Key (JSON file) and place it in the backend directory, naming it serviceAccountKey.json.
+Go to Project Settings → Service Accounts
 
-Obtain your Firebase project's Web App Configuration (API Key, Auth Domain, Project ID, etc.) for the frontend.
+Click Generate new private key
 
-Project Structure
+Save as serviceAccountKey.json inside /backend/
+
+Get Firebase Web App Config:
+
+apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId
+
+📁 Project Structure
 ```
 ecommerce-chatbot/
 ├── backend/
@@ -128,7 +162,7 @@ ecommerce-chatbot/
 └── README.md
 ```
 
-Backend Setup
+🛠️ Backend Setup
 ```
 cd ecommerce-chatbot/backend
 python -m venv venv
@@ -139,13 +173,13 @@ python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
-Frontend Setup
+🧑‍💻 Frontend Setup
 ```
 cd ecommerce-chatbot/frontend
 npm install
 ```
 
-Create firebaseConfig.js in src/:
+🔑 Create firebaseConfig.js inside frontend/src/
 ```
 // src/firebaseConfig.js
 import { initializeApp } from 'firebase/app';
@@ -165,20 +199,19 @@ const auth = getAuth(app);
 
 export { auth, app };
 ```
-Running the Application
-
-Run Backend
+▶️ Running the Application
+🔃 Start Backend
 ```
 cd ecommerce-chatbot/backend
 # Activate venv again if needed
 python app.py
 ```
-Run Frontend
+🌐 Start Frontend
 ```
 cd ecommerce-chatbot/frontend
 npm start
 ```
-API Endpoints
+🔗 API Endpoints
 The backend exposes the following RESTful API endpoints:
 
 POST /api/register: Register a new user with email and password (handled by Firebase).
@@ -193,10 +226,14 @@ POST /api/chatbot: (Protected) Processes user queries, performs product search i
 
 Requires Authorization: Bearer <Firebase ID Token> header.
 
-Request Body: {"query": "your user query"}
-
-Response: {"response": "chatbot text", "products": [...]}
-
+Request Body:
+```
+{"query": "your user query"}
+```
+Response:
+```
+{"response": "chatbot text", "products": [...]}
+```
 GET /api/chat_history: (Protected) Retrieves past chat history for the authenticated user.
 
 Requires Authorization: Bearer <Firebase ID Token> header.
@@ -205,13 +242,14 @@ POST /api/checkout: (Protected) Processes a user's shopping cart, records the or
 
 Requires Authorization: Bearer <Firebase ID Token> header.
 
-Request Body: {"cartItems": [{"id": 1, "quantity": 2, "price": 100}, ...]}
-
-Database Schema
+Request Body:
+```
+{"cartItems": [{"id": 1, "quantity": 2, "price": 100}, ...]}
+```
+🗃️ Database Schema
 The ecommerce.db SQLite database contains the following tables:
 
-products: Stores details of available products.
-
+products
 id (INTEGER PRIMARY KEY AUTOINCREMENT)
 
 name (TEXT)
@@ -222,8 +260,7 @@ price (REAL)
 
 description (TEXT)
 
-chat_history: Stores a log of user queries and chatbot responses.
-
+chat_history
 id (INTEGER PRIMARY KEY AUTOINCREMENT)
 
 user_id (TEXT): Firebase UID of the user.
@@ -234,8 +271,7 @@ query (TEXT): User's input.
 
 response (TEXT): Chatbot's response.
 
-orders: Stores details of completed orders.
-
+orders
 id (INTEGER PRIMARY KEY AUTOINCREMENT)
 
 user_id (TEXT): Firebase UID of the user who placed the order.
@@ -246,8 +282,7 @@ total_amount (REAL)
 
 status (TEXT): e.g., 'pending', 'completed'.
 
-order_items: Stores individual products within an order.
-
+order_items
 id (INTEGER PRIMARY KEY AUTOINCREMENT)
 
 order_id (INTEGER): Foreign key referencing orders.id.
@@ -258,14 +293,22 @@ quantity (INTEGER)
 
 price_at_purchase (REAL): Price of the product at the time of purchase.
 
-Authentication Details
-Authentication is handled by Firebase. Users register and log in via the Firebase SDK on the frontend. Upon successful login, an ID token is obtained. This ID token is then sent with every authenticated request to the Flask backend in the Authorization: Bearer <ID_TOKEN> header. The Flask backend uses the Firebase Admin SDK to verify these tokens, ensuring that only authenticated and authorized users can access protected resources.
+🔐 Authentication Details
+Authentication is handled by Firebase.
 
-Usage Examples
-Register/Login: Create a new account or log in with an existing one.
+Users register and log in via the Firebase SDK on the frontend.
 
-Chat with the Bot:
+Upon successful login, an ID token is obtained.
 
+This ID token is then sent with every authenticated request to the Flask backend in the Authorization: Bearer <ID_TOKEN> header.
+
+The Flask backend uses the Firebase Admin SDK to verify these tokens, ensuring that only authenticated and authorized users can access protected resources.
+
+🧪 Usage Examples
+Register/Login
+Create a new account or log in with an existing one.
+
+Chat with the Bot
 "Hello!"
 
 "Search for laptop"
@@ -278,29 +321,25 @@ Chat with the Bot:
 
 "Thank you!"
 
-Explore Products:
-
+Explore Products
 Click "View Details" from the dashboard.
 
 Use filters (search, category, price) and sorting.
 
-Add to Cart:
-
+Add to Cart
 Click "Add to Cart" on product cards in the dashboard or product detail page.
 
 Your cart items will persist even after logging out.
 
-Manage Cart:
-
+Manage Cart
 Navigate to the Cart icon in the Navbar.
 
 Adjust quantities or remove items.
 
-Checkout:
-
+Checkout
 From the Cart page, click "Proceed to Checkout" to simulate an order.
 
-Potential Future Enhancements
+🌟 Potential Future Enhancements
 Advanced AI Chatbot: Integrate a more powerful LLM (e.g., Gemini API) for more nuanced conversational abilities and product recommendations.
 
 Image Generation: Allow the chatbot to generate images of products based on descriptions using models like Imagen.
@@ -317,42 +356,36 @@ Admin Dashboard: A backend interface for managing products, viewing orders, and 
 
 Product Images: Integrate actual product images (stored in a cloud storage service like Firebase Storage or AWS S3) rather than placeholders.
 
-Challenges Faced and Solutions
-Frontend-Backend Communication & CORS:
-
+🛠️ Challenges Faced and Solutions
+Frontend-Backend Communication & CORS
 Challenge: Initial fetch requests from React to Flask were blocked by CORS policies.
 
 Solution: Implemented Flask-CORS on the backend to allow cross-origin requests from the frontend's domain.
 
-Firebase Authentication & Token Management:
-
+Firebase Authentication & Token Management
 Challenge: Securely authenticating requests from the React frontend to the Flask backend.
 
 Solution: Utilized Firebase's ID Tokens. The frontend obtains the token, and the backend uses the Firebase Admin SDK to verify_id_token(), ensuring the request is from an authenticated and valid user.
 
-State Management in React (Cart & Products):
-
+State Management in React (Cart & Products)
 Challenge: Maintaining cart state across different components and ensuring product data from the chatbot is consistently available to the dashboard and product details.
 
 Solution: Centralized cartItems and productsForDashboard state in App.js and passed necessary functions (addToCart, onProductsFound, onSetProducts) as props. Utilized localStorage for cart persistence.
 
-Chatbot Product Filtering Logic:
-
+Chatbot Product Filtering Logic
 Challenge: Ensuring the chatbot accurately filters products from the database based on user queries, without defaulting to all products after a "reset" or general inquiry.
 
 Solution: Implemented dynamic SQL query construction in the Flask backend's /api/chatbot endpoint, parsing user input for relevant keywords and searching across name, category, and description fields. Explicitly handled "all products" and general greetings.
 
-Navigation and Routing Flow:
-
+Navigation and Routing Flow
 Challenge: Ensuring smooth navigation between pages and correct redirects (e.g., after login/logout, or from chatbot to dashboard).
 
 Solution: Extensively used react-router-dom's useNavigate hook for programmatic navigation and controlled rendering based on user authentication status. Configured explicit routes for all major pages.
 
-Debugging Async Operations (Firebase, Fetch):
-
+Debugging Async Operations (Firebase, Fetch)
 Challenge: Handling asynchronous operations for Firebase authentication and API calls, especially with useEffect and useState hooks, to avoid race conditions or incorrect state updates.
 
 Solution: Careful use of async/await, dependency arrays in useEffect and useCallback, and adding loading states and error handling (try-catch) to provide better user feedback.
 
-Author
+✍️ Author
 Samruddhi R.
