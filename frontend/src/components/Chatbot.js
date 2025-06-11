@@ -254,13 +254,12 @@ function Chatbot({ user, onProductsFound, onResetChat, initialMessage = "Hello! 
                             className={`max-w-[80%] p-3 rounded-lg shadow-sm text-sm relative ${
                                 msg.sender === 'user'
                                     ? 'bg-[#597cdb] text-white ml-auto rounded-br-none'
-                                    : 'mr-auto rounded-bl-none'
-                            } ${
-                                msg.type === 'products_link'
-                                    ? 'bg-green-100 text-green-800 text-center'
-                                    : 'bg-gray-200 text-gray-800'
+                                    : msg.type === 'products_link'
+                                        ? 'bg-green-100 text-green-800 text-center mr-auto rounded-bl-none'
+                                        : 'bg-gray-200 text-gray-800 mr-auto rounded-bl-none'
                             }`}
                         >
+
                             {msg.text}
                             {msg.type === 'products_link' && (
                                 <button
@@ -314,15 +313,13 @@ function Chatbot({ user, onProductsFound, onResetChat, initialMessage = "Hello! 
                                                 </span>
                                             </div>
                                         )}
-                                        <div
-                                            className={`max-w-[90%] p-2 rounded-lg shadow-sm text-xs relative ${
+                                       <div
+                                            className={`max-w-[80%] p-3 rounded-lg shadow-sm text-sm relative ${
                                                 msg.sender === 'user'
-                                                    ? 'bg-[rgb(75,113,218)] text-white ml-auto rounded-br-none'
-                                                    : 'mr-auto rounded-bl-none'
-                                            } ${
-                                                msg.type === 'products_link'
-                                                    ? 'bg-green-100 text-green-800'
-                                                    : 'bg-gray-100 text-gray-700'
+                                                    ? 'bg-[#597cdb] text-white ml-auto rounded-br-none'
+                                                    : msg.type === 'products_link'
+                                                        ? 'bg-green-100 text-green-800 text-center mr-auto rounded-bl-none'
+                                                        : 'bg-gray-200 text-gray-800 mr-auto rounded-bl-none'
                                             }`}
                                         >
                                             {msg.text}
