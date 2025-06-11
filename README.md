@@ -1,13 +1,8 @@
 E-commerce Sales Chatbot
-
 Project Overview
-
 This project implements a full-stack E-commerce Sales Chatbot designed to enhance the online shopping experience by enabling efficient product search, exploration, and purchase processes. The solution comprises a responsive React-based frontend and an API-driven Flask backend, integrated with Firebase for authentication and SQLite for data persistence. The chatbot aims to streamline customer interactions, making product discovery intuitive and accessible.
-
 Features
-
 Frontend (React Application)
-
 Responsive User Interface: Compatible with desktop, tablet, and mobile devices, ensuring a seamless experience across various platforms.
 
 User Authentication: Secure login and registration modules using Firebase Authentication.
@@ -55,7 +50,6 @@ Checkout Process: Initiates an order with the backend, clearing the cart upon su
 Intuitive Navigation: Clear navigation flow between Chatbot, Dashboard, Product Details, and Cart. Logout redirects to the landing page.
 
 Backend (Flask API)
-
 API-driven System: Processes frontend requests via RESTful endpoints.
 
 Firebase Authentication Integration: Securely verifies user tokens for all protected API routes.
@@ -77,9 +71,7 @@ Stores individual items of an order in an order_items table, linking them to pro
 SQLite Database: A lightweight relational database for storing product inventory, chat history, and order details. Populated with over 200 mock e-commerce product entries at startup.
 
 Technology Stack
-
 Frontend
-
 React: A JavaScript library for building user interfaces.
 
 React Router DOM: For declarative routing in the application.
@@ -89,21 +81,18 @@ Tailwind CSS: A utility-first CSS framework for rapid UI development and respons
 Firebase JavaScript SDK: For frontend authentication (user login, registration, session management).
 
 Backend
-
 Flask: A lightweight Python web framework for building RESTful APIs.
 
 Flask-CORS: Enables Cross-Origin Resource Sharing.
 
-SQLite3: Lightweight SQL database engine.
+SQLite3: A C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine.
 
 Firebase Admin SDK (Python): For secure backend authentication (verifying ID tokens).
 
 python-dotenv: For managing environment variables.
 
 Installation and Setup
-
 Prerequisites
-
 Node.js (LTS version recommended) and npm
 
 Python (3.8+) and pip
@@ -114,9 +103,9 @@ Create a Firebase project on the Firebase Console.
 
 Enable Authentication (Email/Password provider).
 
-Generate a Service Account Key (JSON file) and place it in the backend directory as serviceAccountKey.json.
+Generate a Service Account Key (JSON file) and place it in the backend directory, naming it serviceAccountKey.json.
 
-Obtain your Firebase project's Web App Configuration for the frontend.
+Obtain your Firebase project's Web App Configuration (API Key, Auth Domain, Project ID, etc.) for the frontend.
 
 Project Structure
 ```
