@@ -8,41 +8,51 @@ from functools import wraps
 import re
 from datetime import datetime
 import random # Import random for generating mock data
+import json # ADDED: Required for parsing JSON from environment variable
 
 # Import Firebase Admin SDK modules
 import firebase_admin
 from firebase_admin import credentials, auth
 
-# Load environment variables from .env file
+# Load environment variables from .env file (for local development)
 load_dotenv()
 
 # --- Flask App Initialization ---
 app = Flask(__name__)
 
-CORS(app) # Enable CORS for all routes (consider restricting in production)
+# UPDATED: CORS origin set to your Vercel frontend URL
+CORS(app, resources={r"/api/*": {"origins": ["https://ecommerce-chatbot-chi.vercel.app"]}})
 
 # --- Firebase Admin SDK Configuration ---
-SERVICE_ACCOUNT_KEY_PATH = os.path.join(os.path.dirname(__file__), 'serviceAccountKey.json')
-
-if not os.path.exists(SERVICE_ACCOUNT_KEY_PATH):
-    print(f"Error: serviceAccountKey.json not found at {SERVICE_ACCOUNT_KEY_PATH}")
-    print("Please ensure you have downloaded the Firebase service account key and placed it in the 'backend' directory.")
-    exit(1)
-
+# UPDATED: Load Firebase credentials from environment variable for production
 try:
     if not firebase_admin._apps: # Check if app is already initialized
-        cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
+        firebase_service_account_json = os.getenv('FIREBASE_SERVICE_ACCOUNT_JSON')
+        if firebase_service_account_json:
+            # If FIREBASE_SERVICE_ACCOUNT_JSON env var is set, use it
+            cred = credentials.Certificate(json.loads(firebase_service_account_json))
+        else:
+            # Fallback for local development: try to load from serviceAccountKey.json file
+            # REMINDER: Ensure serviceAccountKey.json is in your .gitignore!
+            SERVICE_ACCOUNT_KEY_PATH = os.path.join(os.path.dirname(__file__), 'serviceAccountKey.json')
+            if not os.path.exists(SERVICE_ACCOUNT_KEY_PATH):
+                raise Exception("FIREBASE_SERVICE_ACCOUNT_JSON env var not set and serviceAccountKey.json not found for local development.")
+            cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
+
         firebase_admin.initialize_app(cred)
         print("Firebase Admin SDK initialized successfully.")
     else:
         print("Firebase Admin SDK already initialized.")
 except Exception as e:
     print(f"Error initializing Firebase Admin SDK: {e}")
+    # It's better to exit if Firebase initialization fails in a production environment
     exit(1)
 
 
 # --- SQLite Database Setup ---
-DATABASE = 'ecommerce.db'
+# UPDATED: Use RENDER_DISK_PATH environment variable for persistent storage on Render
+DATABASE = os.path.join(os.getenv('RENDER_DISK_PATH', '/var/data'), 'ecommerce.db')
+
 
 def get_db_connection():
     try:
@@ -149,7 +159,8 @@ def add_sample_products():
     else:
         print("Could not connect to database to add sample products.")
 
-# Ensure database and sample products are set up when the app starts
+# IMPORTANT: Ensure database and sample products are set up when the app starts
+# This block runs when Gunicorn loads your app, ensuring the DB is ready.
 with app.app_context():
     init_db()
     add_sample_products()
@@ -253,7 +264,7 @@ def chatbot_query():
                 if term.endswith('s') and len(term) > 3:
                     search_terms.append(term[:-1])
                 elif term.endswith('e') and len(term) > 4: # e.g. 'mouse' -> 'mous' if you want a deeper stem
-                     pass # Not adding anything specific here for now, as it's general
+                    pass # Not adding anything specific here for now, as it's general
                 # Add a very basic pluralization if it's a common singular form (e.g., 'laptop' -> 'laptops')
                 if not term.endswith('s') and len(term) > 2:
                     search_terms.append(term + 's')
@@ -413,12 +424,12 @@ def checkout():
 
 # --- Run the App ---
 if __name__ == '__main__':
-    # Ensure database and sample products are set up at startup
-    # This block is re-checked here to be executed when app.py is run directly
+    # This block is for local development when you run 'python app.py' directly.
+    # It will not be executed when Gunicorn runs your app on Render.
+    # The init_db() and add_sample_products() at the top-level are for Gunicorn.
     with app.app_context():
         init_db()
         add_sample_products()
 
-    # For local development:
-    app.run(debug=True, host='0.0.0.0', port=5000)
-
+    # UPDATED: Set debug=False for production readiness (even if this block isn't used by Gunicorn)
+    app.run(debug=False, host='0.0.0.0', port=5000)
