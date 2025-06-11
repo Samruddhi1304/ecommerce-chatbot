@@ -1,9 +1,13 @@
 E-commerce Sales Chatbot
+
 Project Overview
+
 This project implements a full-stack E-commerce Sales Chatbot designed to enhance the online shopping experience by enabling efficient product search, exploration, and purchase processes. The solution comprises a responsive React-based frontend and an API-driven Flask backend, integrated with Firebase for authentication and SQLite for data persistence. The chatbot aims to streamline customer interactions, making product discovery intuitive and accessible.
 
 Features
+
 Frontend (React Application)
+
 Responsive User Interface: Compatible with desktop, tablet, and mobile devices, ensuring a seamless experience across various platforms.
 
 User Authentication: Secure login and registration modules using Firebase Authentication.
@@ -51,6 +55,7 @@ Checkout Process: Initiates an order with the backend, clearing the cart upon su
 Intuitive Navigation: Clear navigation flow between Chatbot, Dashboard, Product Details, and Cart. Logout redirects to the landing page.
 
 Backend (Flask API)
+
 API-driven System: Processes frontend requests via RESTful endpoints.
 
 Firebase Authentication Integration: Securely verifies user tokens for all protected API routes.
@@ -72,7 +77,9 @@ Stores individual items of an order in an order_items table, linking them to pro
 SQLite Database: A lightweight relational database for storing product inventory, chat history, and order details. Populated with over 200 mock e-commerce product entries at startup.
 
 Technology Stack
+
 Frontend
+
 React: A JavaScript library for building user interfaces.
 
 React Router DOM: For declarative routing in the application.
@@ -82,18 +89,21 @@ Tailwind CSS: A utility-first CSS framework for rapid UI development and respons
 Firebase JavaScript SDK: For frontend authentication (user login, registration, session management).
 
 Backend
+
 Flask: A lightweight Python web framework for building RESTful APIs.
 
 Flask-CORS: Enables Cross-Origin Resource Sharing.
 
-SQLite3: A C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine.
+SQLite3: Lightweight SQL database engine.
 
 Firebase Admin SDK (Python): For secure backend authentication (verifying ID tokens).
 
 python-dotenv: For managing environment variables.
 
 Installation and Setup
+
 Prerequisites
+
 Node.js (LTS version recommended) and npm
 
 Python (3.8+) and pip
@@ -104,119 +114,81 @@ Create a Firebase project on the Firebase Console.
 
 Enable Authentication (Email/Password provider).
 
-Generate a Service Account Key (JSON file) and place it in the backend directory, naming it serviceAccountKey.json.
+Generate a Service Account Key (JSON file) and place it in the backend directory as serviceAccountKey.json.
 
-Obtain your Firebase project's Web App Configuration (API Key, Auth Domain, Project ID, etc.) for the frontend.
+Obtain your Firebase project's Web App Configuration for the frontend.
 
 Project Structure
+```
 ecommerce-chatbot/
 ├── backend/
-│ ├── app.py
-│ ├── serviceAccountKey.json <-- Place your Firebase Admin SDK key here
-│ ├── ecommerce.db <-- SQLite database (generated on first run)
-│ ├── .env.example <-- Example .env file for backend
-│ └── requirements.txt
+│   ├── app.py
+│   ├── serviceAccountKey.json
+│   ├── ecommerce.db
+│   ├── .env.example
+│   └── requirements.txt
 ├── frontend/
-│ ├── public/
-│ ├── src/
-│ │ ├── components/
-│ │ │ ├── Chatbot.js
-│ │ │ ├── CartPage.js
-│ │ │ ├── ... (other components)
-│ │ ├── contexts/
-│ │ │ └── AuthContext.js
-│ │ ├── firebaseConfig.js <-- Your frontend Firebase config
-│ │ └── App.js
-│ ├── package.json
-│ └── tailwind.config.js
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── contexts/
+│   │   ├── firebaseConfig.js
+│   │   └── App.js
+│   ├── package.json
+│   └── tailwind.config.js
 └── README.md
+```
 
 Backend Setup
-Navigate to the backend directory:
-
+```
 cd ecommerce-chatbot/backend
-
-Create a virtual environment (recommended):
-
 python -m venv venv
-
-Activate the virtual environment:
-
-On Windows: .\venv\Scripts\activate
-
-On macOS/Linux: source venv/bin/activate
-
-Install Python dependencies:
-
+# Activate venv:
+# Windows:
+.\venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
 pip install -r requirements.txt
-
-Create .env file:
-Create a file named .env in the backend directory. This file is currently not strictly necessary for this project's Python side as we directly point to serviceAccountKey.json and Firebase Admin SDK manages API keys for itself. However, it's good practice for future expansions.
-
+```
 Frontend Setup
-Navigate to the frontend directory:
-
+```
 cd ecommerce-chatbot/frontend
-
-Install Node.js dependencies:
-
 npm install
+```
 
-Create firebaseConfig.js:
-In the frontend/src directory, create a file named firebaseConfig.js and add your Firebase Web App Configuration:
-
-// frontend/src/firebaseConfig.js
+Create firebaseConfig.js in src/:
+```
+// src/firebaseConfig.js
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-apiKey: "YOUR_API_KEY",
-authDomain: "YOUR_AUTH_DOMAIN",
-projectId: "YOUR_PROJECT_ID",
-storageBucket: "YOUR_STORAGE_BUCKET",
-messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-appId: "YOUR_APP_ID"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export { auth, app }; // Export app as well if needed elsewhere
-
-Replace YOUR_API_KEY, YOUR_AUTH_DOMAIN, etc., with your actual Firebase project details.
-
+export { auth, app };
+```
 Running the Application
 
-1. Run the Backend
-   Navigate to the backend directory:
-
+Run Backend
+```
 cd ecommerce-chatbot/backend
-
-Activate your virtual environment (if not already active):
-
-On Windows: .\venv\Scripts\activate
-
-On macOS/Linux: source venv/bin/activate
-
-Run the Flask application:
-
+# Activate venv again if needed
 python app.py
-
-You should see output indicating the Flask server is running, usually on http://0.0.0.0:5000 or http://127.0.0.1:5000. The SQLite database ecommerce.db will be created in the backend directory on the first run, and sample products will be added.
-
-2. Run the Frontend
-   Open a new terminal window.
-
-Navigate to the frontend directory:
-
+```
+Run Frontend
+```
 cd ecommerce-chatbot/frontend
-
-Start the React development server:
-
 npm start
-
-This will typically open your application in your browser at http://localhost:3000.
-
+```
 API Endpoints
 The backend exposes the following RESTful API endpoints:
 
