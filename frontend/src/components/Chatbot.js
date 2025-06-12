@@ -317,9 +317,9 @@ function Chatbot({ user, onProductsFound, onResetChat, initialMessage = "Hello! 
                                             className={`max-w-[80%] p-3 rounded-lg shadow-sm text-sm relative ${
                                                 msg.sender === 'user'
                                                     ? 'bg-[#597cdb] text-white ml-auto rounded-br-none'
-                                                    : msg.type === 'products_link'
-                                                        ? 'bg-green-100 text-green-800 text-center mr-auto rounded-bl-none'
-                                                        : 'bg-gray-200 text-gray-800 mr-auto rounded-bl-none'
+                                                : msg.type === 'products_link'
+                                                    ? 'bg-green-100 text-green-800 text-center mr-auto rounded-bl-none'
+                                                    : 'bg-gray-200 text-gray-800 mr-auto rounded-bl-none'
                                             }`}
                                         >
                                             {msg.text}
