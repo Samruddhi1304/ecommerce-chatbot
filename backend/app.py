@@ -8,7 +8,7 @@ from functools import wraps
 import re
 from datetime import datetime
 import random # Import random for generating mock data
-import json # ADDED: Required for parsing JSON from environment variable
+import json # Required for parsing JSON from environment variable (though now we prefer file path)
 
 # Import Firebase Admin SDK modules
 import firebase_admin
@@ -25,20 +25,26 @@ CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000", "https://e
 
 
 # --- Firebase Admin SDK Configuration ---
-# UPDATED: Load Firebase credentials from environment variable for production
 try:
     if not firebase_admin._apps: # Check if app is already initialized
-        firebase_service_account_json = os.getenv('FIREBASE_SERVICE_ACCOUNT_JSON')
-        if firebase_service_account_json:
-            # If FIREBASE_SERVICE_ACCOUNT_JSON env var is set, use it
-            cred = credentials.Certificate(json.loads(firebase_service_account_json))
+        # Try to load credentials from a file path specified by GOOGLE_APPLICATION_CREDENTIALS env var
+        # This is the recommended method for production deployments.
+        service_account_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+
+        if service_account_path and os.path.exists(service_account_path):
+            cred = credentials.Certificate(service_account_path)
+            print(f"Firebase credentials loaded from GOOGLE_APPLICATION_CREDENTIALS path: {service_account_path}")
         else:
-            # Fallback for local development: try to load from serviceAccountKey.json file
-            # REMINDER: Ensure serviceAccountKey.json is in your .gitignore!
+            # Fallback for local development if GOOGLE_APPLICATION_CREDENTIALS env var is not set
+            # or the path it points to does not exist.
+            # REMINDER: Ensure serviceAccountKey.json is in your .gitignore for local dev!
             SERVICE_ACCOUNT_KEY_PATH = os.path.join(os.path.dirname(__file__), 'serviceAccountKey.json')
-            if not os.path.exists(SERVICE_ACCOUNT_KEY_PATH):
-                raise Exception("FIREBASE_SERVICE_ACCOUNT_JSON env var not set and serviceAccountKey.json not found for local development.")
-            cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
+            if os.path.exists(SERVICE_ACCOUNT_KEY_PATH):
+                cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
+                print(f"Firebase credentials loaded from local file: {SERVICE_ACCOUNT_KEY_PATH}")
+            else:
+                # If neither a valid env var path nor a local file is found, raise an error
+                raise Exception("Firebase service account credentials not found. Please ensure GOOGLE_APPLICATION_CREDENTIALS env var is set correctly for deployment, or serviceAccountKey.json exists for local development.")
 
         firebase_admin.initialize_app(cred)
         print("Firebase Admin SDK initialized successfully.")
@@ -51,7 +57,8 @@ except Exception as e:
 
 
 # --- SQLite Database Setup ---
-# UPDATED: Use RENDER_DISK_PATH environment variable for persistent storage on Render
+# UPDATED: Use RENDER_DISK_PATH environment variable for persistent storage on Render (this part is specific to Render,
+# but can be adapted for PythonAnywhere by ensuring DATABASE path is writable)
 DATABASE = 'ecommerce.db'
 
 
