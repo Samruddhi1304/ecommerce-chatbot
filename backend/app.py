@@ -21,7 +21,8 @@ load_dotenv()
 app = Flask(__name__)
 
 # UPDATED: CORS origin set to your Vercel frontend URL
-CORS(app, resources={r"/api/*": {"origins": ["https://ecommerce-chatbot-chi.vercel.app"]}})
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000", "https://ecommerce-chatbot-chi.vercel.app"]}})
+
 
 # --- Firebase Admin SDK Configuration ---
 # UPDATED: Load Firebase credentials from environment variable for production
@@ -51,7 +52,7 @@ except Exception as e:
 
 # --- SQLite Database Setup ---
 # UPDATED: Use RENDER_DISK_PATH environment variable for persistent storage on Render
-DATABASE = os.path.join(os.getenv('RENDER_DISK_PATH', '/var/data'), 'ecommerce.db')
+DATABASE = 'ecommerce.db'
 
 
 def get_db_connection():
